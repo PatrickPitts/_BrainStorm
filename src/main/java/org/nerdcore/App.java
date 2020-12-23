@@ -6,47 +6,32 @@ public class App {
 
     public static void main(String[] args) {
 
-        int[] arr = TestSorts.randomConsecutiveIntArray(10, 1000000000);
-        System.out.println(Arrays.toString(arr));
-    }
-}
-
-class PrivateClass {
-    private static String myPrivateString = "This is a private external string";
-
-    private static void privateClassMethod() {
-        System.out.println("I'm the private class method");
-    }
-
-    public static class Inner extends PrivateClass {
-
-        Inner() {
-            privateClassMethod();
+        int n = 25;
+        int[][] arr = new int[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j =0; j < n ; j++){
+                arr[i][j] = j + i*n;
+            }
         }
+
+        Stopwatch s = new Stopwatch();
+
+        s.start();
+        MatRotate.rotate(arr);
+        s.stop();
+        System.out.printf("%sms%n", s.getDurationString());
+        for(int[] row : arr){
+            System.out.println(Arrays.toString(row));
+        }
+
+        s.start();
+        MatRotate.oRotate(arr);
+        s.stop();
+        System.out.printf("%sms%n", s.getDurationString());
+        for(int[] row : arr){
+            System.out.println(Arrays.toString(row));
+        }
+
     }
-}
-
-class Solution {
-
-    private static String str = "I'm a private String!";
-
-    private Object myObject;
-    private Class myObjectClass;
-
-    Solution(Object o) {
-        this.myObject = o;
-        this.myObject = o.getClass();
-    }
-
-    boolean isInstanceOf(Object that){
-        return that.getClass().getTypeName().equals(myObjectClass.getTypeName());
-    }
-
-
-    private void privateMethod() {
-        System.out.println("I'm private");
-    }
-
-
 }
 
