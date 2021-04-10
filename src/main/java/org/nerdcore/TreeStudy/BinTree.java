@@ -1,10 +1,13 @@
 package org.nerdcore.TreeStudy;
 
+import java.util.Random;
+
 public class BinTree {
 
     private Node root;
     private int[] dataArr;
     private int[] inOrderArr;
+    private final Random random = new Random();
 
     public BinTree() {
     }
@@ -14,6 +17,10 @@ public class BinTree {
 
         this.setRoot(insertLevelOrder(dataArr, this.getRoot(), 0));
     }
+
+
+
+
 
     public Node insertLevelOrder(int[] arr, Node root, int nodeNum) {
         if (nodeNum < arr.length) {

@@ -1,65 +1,130 @@
 package org.nerdcore.LinkedListStudy;
 
+import java.util.Arrays;
+
 public class SingleLinkedList {
 
-    private SingleLinkedListNode head;
+    Node head;
+
+    public SingleLinkedList(Node head) {
+        this.head = head;
+    }
 
     public SingleLinkedList() {
     }
 
-    public SingleLinkedList(SingleLinkedListNode head) {
-        this.head = head;
-    }
 
-    public SingleLinkedList(int data){
-        this.head = new SingleLinkedListNode(data);
-    }
-
-    public SingleLinkedList(int[] arr){
-        for(int num : arr){
-            this.append(num);
+    public SingleLinkedList(int[] arr) {
+        for (int j : arr) {
+            this.append(j);
         }
     }
 
-    public void append(int data){
-        if(this.head == null) {
-            this.head = new SingleLinkedListNode(data);
+    public void deleteMiddle(int value) {
+        deleteMiddle(new Node(value));
+    }
+
+    public void deleteMiddle(Node nodeToDelete) {
+        if (this.head == null || this.head.next == null) return;
+        Node thisNode = this.head.next;
+        while (thisNode.next != null && thisNode.next.next != null) {
+            if (thisNode.next.equals(nodeToDelete)) {
+                thisNode.next = thisNode.next.next;
+                break;
+            }
+            thisNode = thisNode.next;
+        }
+    }
+
+    public SingleLinkedList append(Node endNode) {
+        if (head == null) {
+            this.head = endNode;
         } else {
-            this.head.append(new SingleLinkedListNode(data));
+            Node n = this.head;
+            while (n.next != null) {
+                n = n.next;
+            }
+            n.setNext(endNode);
         }
+        return this;
     }
 
-    public void append(Node node){
-        this.head.append(node);
+    public SingleLinkedList append(int data) {
+        return append(new Node(data));
     }
 
-
-    public void print(){
-        if(this.head == null)return;
-        if(this.head.getNext() != null){
-            System.out.printf("[%d", this.head.getData());
-            this.head.getNext().print();
-            System.out.println("]");
+    @Override
+    public String toString() {
+        if (head == null) {
+            return "[]";
         }
-    }
-
-    public int get(int index){
-        try{
-            return this.head.seekForIndex(index);
-        } catch (IndexOutOfBoundsException e){
-            String message = "Index %s is out of bounds.";
-            throw new IndexOutOfBoundsException(String.format(message, index));
+        StringBuilder s = new StringBuilder("[" + head.data);
+        Node n = head;
+        while (n.next != null) {
+            n = n.next;
+            s.append(" -> ").append(n.data);
         }
+        s.append("]");
+        return s.toString();
+
     }
 
-    public void insert(int value, int index){
-        try{
-            this.head.insert(value, index);
-        } catch (IndexOutOfBoundsException e){
-            String message = "Index %s is out of bounds.";
-            throw new IndexOutOfBoundsException(String.format(message, index));
-        } catch (Exception e){
-            e.printStackTrace();
+    public boolean equals(SingleLinkedList other) {
+        Node thisNode = this.head;
+        Node otherNode = other.head;
+        if (thisNode.data != otherNode.data) return false;
+        while (thisNode.next != null && otherNode.next != null) {
+            thisNode = thisNode.next;
+            otherNode = otherNode.next;
+            if (thisNode.data != otherNode.data) return false;
+        }
+        return thisNode.next == null && otherNode.next == null;
+    }
+
+    public int getLength(Node n) {
+        if (n == null) return 0;
+        if (n.next == null) return 1;
+        return getLength(n.next) + 1;
+    }
+
+    public int getLength() {
+        return getLength(this.head);
+    }
+
+    public Node getKthFromLast(int K) {
+        if (this.getLength() < K) return null;
+        Node toEnd = this.head;
+        Node kth = this.head;
+        for (int i = 0; i < K; i++) {
+            toEnd = toEnd.next;
+        }
+        while (toEnd != null) {
+            kth = kth.next;
+            toEnd = toEnd.next;
+        }
+        return kth;
+    }
+
+    class Node {
+        int data;
+        Node next;
+
+        public Node(int data) {
+            this.data = data;
+        }
+
+        void setNext(int data) {
+            this.next = new Node(data);
+        }
+
+        void setNext(Node next) {
+            this.next = next;
+        }
+
+        boolean equals(Node other) {
+            return this.data == other.data;
         }
     }
 }
+
+

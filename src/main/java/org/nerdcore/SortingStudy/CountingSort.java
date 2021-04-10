@@ -1,27 +1,35 @@
 package org.nerdcore.SortingStudy;
 
+import java.util.Arrays;
+
 public class CountingSort {
 
     public static int[] sort(int[] arr) {
-
-        int max = Integer.MIN_VALUE;
+        System.out.println(arr.length);
+        int max = arr[0];
+        for(int n : arr){
+            if(n > max)max = n;
+        }
         int[] sorted = new int[arr.length];
-        for (int val : arr) {
-            if (val > max) max = val;
+        int[] counts = new int[max + 1];
+        for(int n : arr){
+            counts[n]++;
         }
 
-        int[] aux = new int[max + 1];
-        for(int i = 0; i < arr.length; i++){
-            aux[arr[i]]++;
+        for(int i = 1; i < counts.length; i++){
+            counts[i] += counts[i-1];
+        }
+        System.out.println(Arrays.toString(counts));
+        System.out.println(sorted.length);
+        for(int i = arr.length - 1; i > 0; i--){
+            int val = arr[i];
+            int index = --counts[val];
+            //counts[val]--;
+            sorted[index] = val;
+
+            //sorted[counts[arr[i]]] = arr[counts[i]--];
         }
 
-        int j = 0;
-        for(int i = 0; i <= max; i++){
-            int value = aux[i];
-            while(value-- > 0){
-                sorted[j++] = i;
-            }
-        }
         return sorted;
     }
 }

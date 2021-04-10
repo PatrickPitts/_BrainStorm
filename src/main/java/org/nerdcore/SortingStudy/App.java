@@ -11,8 +11,13 @@ import java.util.Random;
 public class App {
 
     public static void main(String[] args) {
-        int[] nums = {170, 45, 75, 90, 802, 24, 2, 66};
-        RadixSort.sort(nums);
+        Random r = new Random();
+        int[] nums = new int[10];
+        for(int i = 0; i < 10; i++){
+            nums[i] = r.nextInt(1000);
+        }
         System.out.println(Arrays.toString(nums));
+        //System.out.println(Arrays.toString(CountingSort.sort(nums)));
+        System.out.println(Arrays.toString(RadixSort.sort(nums)));
     }
 }

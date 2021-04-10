@@ -20,7 +20,7 @@ public class TestSorts {
             //sorts.add(arr -> MergeSort.sort(arr));
             //sorts.add(arr -> QuickSort.sort(arr));
             //sorts.add(arr -> CountingSort.sort(arr));
-            sorts.add(arr -> RadixSort.oSort(arr));
+            //sorts.add(arr -> RadixSort.oSort(arr));
             sorts.add(arr -> RadixSort.sort(arr));
 
             //sortNames.add("Insert");
