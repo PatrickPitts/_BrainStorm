@@ -10,7 +10,7 @@ public class LaTeXGenerator {
     private static final String LB = "\\\\\n";
 
     public static void main(String[] args) {
-        String str = truthTable( 4,"p", "q", "r");
+        String str = truthTable( 0,"p", "q", "r");
 
 
         toClipBoard(str);
