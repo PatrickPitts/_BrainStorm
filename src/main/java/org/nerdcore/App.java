@@ -10,19 +10,11 @@ public class App {
 
     public static void main(String[] args) {
 
-        String S = "TENNESSEE";
-        Map<String, Integer> words = new HashMap<>();
-        for(int i = 0; i < S.length(); i++){
-            for(int j = 0; j < S.length(); j++){
-                for(int k = 0; k < S.length(); k++){
-                    if(i != j && j != k&& k != i){
-                        String str = new String(new char[]{S.charAt(i), S.charAt(j), S.charAt(k)});
-                        words.put(str, words.getOrDefault(str, 0)+1);
-                    }
-                }
-            }
+        String s = "this\nis\na\nstring";
+        Scanner reader = new Scanner(s);
+        while(reader.hasNext()){
+            System.out.println(reader.next());
         }
-        System.out.println(words.size());
     }
 
 
