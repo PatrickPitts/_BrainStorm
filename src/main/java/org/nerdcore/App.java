@@ -2,19 +2,183 @@ package org.nerdcore;
 
 
 import javax.swing.plaf.SliderUI;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.LinkedList.*;
 
+class RandomStringChooser{
+
+    private ArrayList<String> wordList;
+
+    public RandomStringChooser(String[] wordArray){
+        wordList = new ArrayList<>();
+        for(String s : wordArray){
+            wordList.add(s);
+        }
+    }
+
+    public String getNext(){
+        if(wordList.size() < 1)return "NONE";
+        String ret = wordList.get((int) (Math.random() * wordList.size()));
+        wordList.remove(ret);
+        return ret;
+    }
+}
+
+
+
 public class App {
 
+    public static void main(String[] args){
+        Stack<Integer> S = new Stack<>();
+        S.push(14);
+        S.push(4);
+        S.push(3);
+        S.push(2);
+        S.push(1);
+        S.push(3);
+        S.push(8);
+        S.push(17);
+        S.push(9);
+        S.push(99);
+        S.push(9);
+        S.push(17);
+        S.push(8);
+        S.push(3);
+        System.out.println(S);
+        switchPairs(S);
+        System.out.println(S);
+    }
 
-    public static void main(String[] args) {
-
-        String s = "this\nis\na\nstring";
-        Scanner reader = new Scanner(s);
-        while(reader.hasNext()){
-            System.out.println(reader.next());
+    public static void switchPairs(Stack<Integer> S){
+        Queue<Integer> Q = new LinkedList<>();
+        int n = S.size();
+        while(S.size() > 0){
+            Q.offer(S.pop());
         }
+        while(Q.size() > 0){
+            S.push(Q.poll());
+        }
+        while(S.size() > 0){
+            Q.offer(S.pop());
+        }
+        while(Q.size() > n % 2){
+            int x = Q.poll();
+            S.push(Q.poll());
+            S.push(x);
+        }
+        if(Q.size() > 0) S.push(Q.poll());
+        System.out.println(Q);
+//        while(Q.size() > 0){
+//            S.push(Q.poll());
+//        }
+
+    }
+
+    /*
+    * Uses recursion/backtracking to find the maximum sum of elements in L less than or equal to limit
+    * */
+    public static int maxSum(List<Integer> L, int limit){
+        if(L.size() == 0)return 0;
+        return maxSum(L, limit, 0, 0);
+    }
+
+    private static int maxSum(List<Integer> L, int limit, int sum, int index){
+        if(sum > limit) return -1;
+        if(index == L.size())return sum;
+        return Math.max(maxSum(L, limit, sum, index + 1), maxSum(L, limit, sum + L.get(index), index + 1));
+
+    }
+
+    public static int getLongestRun(int[] values){
+        int mri = -1;//maximum run index
+        int mrl = 1;//Maximum run length
+        int currentRunIndex = 0;
+        int currentRunLength = 1;
+        for(int i = 1; i < values.length; i++){
+            if(values[i] == values[i-1]){
+                currentRunLength++;
+                if(currentRunLength > mrl){
+                    mrl = currentRunLength;
+                    mri = currentRunIndex;
+                }
+            } else {
+                currentRunIndex = i;
+                currentRunLength = 1;
+            }
+        }
+        return mri;
+
+    }
+
+
+
+
+    public static int mode(int[] myNums){
+
+        int[] freq = new int[max(myNums) + 1];
+        int mode = 0;
+
+        for(int i = 0; i < myNums.length; i++){
+            freq[ myNums[i] ]++;
+        }
+
+        for(int i = 0; i < freq.length; i++){
+
+            if(freq[i] > freq[mode]){
+                mode = i;
+            }
+        }
+
+        return mode;
+
+    }
+
+    public static int max(int[] myNums){
+        int max = myNums[0];
+        for(int i = 0; i < myNums.length; i++){
+
+            int n = myNums[i];
+            if(n > max) {
+                max = n;
+            };
+        }
+
+        return max;
+    }
+
+    public static int numberOfLeapYears(int year1, int year2){
+        int counter = 0;
+        for(int i = year1; i <= year2; i++){
+            if(isLeapYear(i)){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public static int dayOfWeek(int month, int day, int year){
+        int thisDay = firstDayOfYear(year) + dayOfYear(month, day, year) - 1;
+        return thisDay % 7;
+    }
+
+    //Returns true if the year is a leap year, false otherwise
+    public static boolean isLeapYear(int year){
+        return true;
+    }
+
+    //Returns the integer value of the first day of the year
+    //Sunday = 0, Monday = 1, Tuesday = 2, etc
+    public static int firstDayOfYear(int year){
+        return -1;
+    }
+
+    //Returns the number of days since January 1st of that year
+    //Jan 3 = 3, Feb 3 = 34, etc
+    public static int dayOfYear(int month, int day, int year){
+        return -1;
     }
 
 

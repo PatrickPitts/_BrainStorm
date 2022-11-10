@@ -29,10 +29,8 @@ public class RadixSort {
                 index = --counts[index];
                 sorted[index] = v;
             }
-            System.out.println(Arrays.toString(sorted));
             temp=Arrays.copyOf(sorted, sorted.length);
         }
-
         return sorted;
     }
 }

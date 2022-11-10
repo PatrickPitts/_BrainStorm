@@ -18,6 +18,6 @@ public class App {
         }
         System.out.println(Arrays.toString(nums));
         //System.out.println(Arrays.toString(CountingSort.sort(nums)));
-        System.out.println(Arrays.toString(RadixSort.sort(nums)));
+        System.out.println(Arrays.toString(InsertionSort.sort(nums)));
     }
 }

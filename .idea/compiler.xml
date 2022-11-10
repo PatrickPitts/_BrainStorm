@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="_BrainStorm" />
         <module name="brainstorm" />
+        <module name="_BrainStorm" />
       </profile>
     </annotationProcessing>
   </component>
